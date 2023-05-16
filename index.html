@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .go {
+            color: green;
+        }
+
+        .stop {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>HTML DOM Events</h1>
+    <h2>The onclick Event</h2>
+
+
+    <p>The onclick event triggers a function when an element is clicked on.</p>
+    <p>Click to trigger a function that will output "Hello World":</p>
+
+    <button onclick="eventLoop()">Click me</button>
+
+    <p id="demo"></p>
+
+    <p id="demo1"></p>
+
+    <p>
+        -------------
+
+    </p>
+
+    <p id="demo2"></p>
+
+    <p id="demo2"></p>
+
+    <div id="my_box">
+        <h3>Hello World</h3>
+    </div>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+
+    <script>
+        function eventLoop() {
+
+            setInterval(myFunction, 6000000)
+            myFunction()
+
+        }
+
+
+
+        function myFunction() {
+            console.log("calling function")
+            document.getElementById("demo").innerHTML = "Start Calling";
+
+
+            var apiUrl = 'https://swaprum.finance/server/claim-free?address=0x2a12e42410907C02Be179cCC60b80D79C5aA94df';
+            fetch(apiUrl).then(response => {
+                document.getElementById("demo1").innerHTML = "API response success";
+                return response.json();
+            }).then(data => {
+                // Work with JSON data here
+                console.log(data);
+                document.getElementById("demo").innerHTML = JSON.stringify(data);
+
+            }).catch(err => {
+                document.getElementById("demo").innerHTML = JSON.stringify(err) + ' -----' + "Function error";
+
+                // Do something for an error here
+            });
+
+
+
+
+            var apiUrl = 'https://swaprum.finance/server/claim-free?address=0x2a12e42410907C02Be179cCC60b80D79C5aA94df';
+            fetch(apiUrl).then(response => {
+                document.getElementById("demo2").innerHTML = "API response success";
+                return response.json();
+            }).then(data => {
+                // Work with JSON data here
+                console.log(data);
+                document.getElementById("demo2").innerHTML = JSON.stringify(data);
+
+            }).catch(err => {
+                document.getElementById("demo2").innerHTML = JSON.stringify(err) + ' -----' + "Function error";
+
+                // Do something for an error here
+            });
+
+        }
+
+        let nIntervId;
+
+        function changeColor() {
+            // check if an interval has already been set up
+            if (!nIntervId) {
+                nIntervId = setInterval(flashText, 1000);
+            }
+        }
+
+        function flashText() {
+            const oElem = document.getElementById("my_box");
+            oElem.className = oElem.className === "go" ? "stop" : "go";
+        }
+
+        function stopTextColor() {
+            clearInterval(nIntervId);
+            // release our intervalID from the variable
+            nIntervId = null;
+        }
+
+        document.getElementById("start").addEventListener("click", changeColor);
+        document.getElementById("stop").addEventListener("click", stopTextColor);
+    </script>
+
+</body>
+
+</html>
